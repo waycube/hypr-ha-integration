@@ -1,6 +1,8 @@
 from fastapi import FastAPI, HTTPException
 import subprocess
 import os
+import json
+
 
 app = FastAPI()
 HYPRCTL = "hyprctl"
@@ -18,7 +20,27 @@ def hypr(args):
 
 @app.get("/status")
 def status():
-    return {"status": "ok"}
+    try:
+        result = subprocess.run(
+            ["hyprctl", "monitors", "-j"],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        monitors = json.loads(result.stdout)
+
+        active_workspace = None
+        for m in monitors:
+            if m.get("focused"):
+                active_workspace = m["activeWorkspace"]["id"]
+                break
+
+        return {
+            "status": "ok",
+            "workspace": active_workspace,
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/workspace/{num}")
 def set_workspace(num: int):

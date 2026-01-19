@@ -4,10 +4,12 @@ from homeassistant.helpers import device_registry as dr
 
 from .api import HyprApiClient
 from .coordinator import HyprlandCoordinator
-from .const import DOMAIN
+from .const import DOMAIN, PLATFORMS
+
 
 async def async_setup_entry(hass: HomeAssistant, entry):
     session = async_get_clientsession(hass)
+
     client = HyprApiClient(
         entry.data["host"],
         entry.data["port"],
@@ -31,6 +33,13 @@ async def async_setup_entry(hass: HomeAssistant, entry):
         model="Wayland Desktop",
     )
 
+    # 👇 STAP 3: platforms forwarden (binary_sensor)
+    await hass.config_entries.async_forward_entry_setups(
+        entry,
+        PLATFORMS,
+    )
+
+    # 👇 Services (blijven global, maar host-gebonden via entry)
     async def handle_set_workspace(call: ServiceCall):
         await coordinator.client.set_workspace(call.data["workspace"])
 
@@ -46,6 +55,13 @@ async def async_setup_entry(hass: HomeAssistant, entry):
 
     return True
 
+
 async def async_unload_entry(hass: HomeAssistant, entry):
+    # 👇 STAP 4: platforms unloaden
+    await hass.config_entries.async_unload_platforms(
+        entry,
+        PLATFORMS,
+    )
+
     hass.data[DOMAIN].pop(entry.entry_id)
     return True

@@ -1,3 +1,3 @@
 DOMAIN = "hyprland_control"
-PLATFORMS: list[str] = []
+PLATFORMS = ["binary_sensor", "sensor", "select"]
 DEFAULT_PORT = 8129

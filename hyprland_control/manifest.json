@@ -1,0 +1,7 @@
+{
+  "domain": "hyprland_control",
+  "name": "Hyprland Control",
+  "version": "0.2.0",
+  "config_flow": true,
+  "iot_class": "local_polling"
+}

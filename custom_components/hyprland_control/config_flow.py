@@ -1,8 +1,8 @@
 from homeassistant import config_entries
 import voluptuous as vol
+
 from .const import DOMAIN, DEFAULT_PORT
 
-DOMAIN = "hyprland_control"
 
 class HyprlandControlConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1

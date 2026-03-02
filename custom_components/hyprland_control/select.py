@@ -44,9 +44,6 @@ class HyprlandWorkspaceSelect(
         return f"Workspace {workspace}"
 
     async def async_select_option(self, option: str):
-        # option = "Workspace X"
         workspace = int(option.split(" ")[1])
         await self.coordinator.client.set_workspace(workspace)
-
-        # Forceer directe refresh zodat UI meteen klopt
         await self.coordinator.async_request_refresh()

@@ -1,6 +1,7 @@
 import aiohttp
 import async_timeout
 
+
 class HyprApiClient:
     def __init__(self, host: str, port: int, session: aiohttp.ClientSession):
         self._base = f"http://{host}:{port}"

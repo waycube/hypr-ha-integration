@@ -7,12 +7,14 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from .coordinator import HyprlandCoordinator
 from .const import DOMAIN
 
+
 async def async_setup_entry(hass, entry, async_add_entities):
     coordinator: HyprlandCoordinator = hass.data[DOMAIN][entry.entry_id]
 
     async_add_entities([
         HyprlandOnlineSensor(coordinator, entry),
     ])
+
 
 class HyprlandOnlineSensor(
     CoordinatorEntity[HyprlandCoordinator],
@@ -31,5 +33,4 @@ class HyprlandOnlineSensor(
 
     @property
     def is_on(self) -> bool:
-        # coordinator.data is None als de update faalt
         return self.coordinator.last_update_success

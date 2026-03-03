@@ -6,9 +6,26 @@ from .coordinator import HyprlandCoordinator
 
 
 PROGRAMS = {
-    "Firefox": "firefox",
-    "Terminal": "kitty",
-    "VS Code": "code",
+    # "Firefox": "firefox",
+    # "Terminal": "kitty",
+    # "VS Code": "code",
+    "Barcode Buddy": "barcodebuddy",
+    "Spotify": "spotify",
+    "Discord": "discord",
+    "Immich": "immich",
+    "Karaoke Eternal": "karaoke-eternal",
+    "Grafana": "grafana",
+    "home-assistant": "home-assistant",
+    "donetick": "doneticket",
+    "clickup": "clickup",
+    "grocy": "grocy",
+    "firefly": "firefly",
+    "immich": "immich",
+    "flightaware": "flightaware",
+    "inventree": "inventree",
+    "nbhydra": "nbhydra",
+
+
 }
 
 
